@@ -16,6 +16,9 @@ public:
     // 외부 쓰레드 안전 송신
     void send_message(const std::string& text);
 
+    // 연결 상태 확인
+    bool isReady() const;
+
 private:
     void setup_callback();
 

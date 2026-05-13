@@ -71,3 +71,7 @@ void custom_websocket_client::send_message(const std::string& text) {
         std::cerr << "[경고] Cannot send. Connection is not open." << std::endl;
     }
 }
+
+bool custom_websocket_client::isReady() const {
+    return _web_socket.getReadyState() == ix::ReadyState::Open;
+}   
