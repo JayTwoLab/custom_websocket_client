@@ -21,35 +21,35 @@ void custom_websocket_client::setup_callback() {
         switch (msg->type) {
             case ix::WebSocketMessageType::Message:
                 if (msg->binary) {
-                    std::cout << "\n[수신] Binary message size: " << msg->str.size() << " bytes" << std::endl;
+                    std::cout << "\n[RECEIVED] Binary message size: " << msg->str.size() << " bytes" << std::endl;
                 } else {
-                    std::cout << "\n[수신] Text message: " << msg->str << std::endl;
+                    std::cout << "\n[RECEIVED] Text message: " << msg->str << std::endl;
                 }
                 break;
 
             case ix::WebSocketMessageType::Open:
-                std::cout << "[상태] Connection opened" << std::endl;
+                std::cout << "[STATUS] Connection opened" << std::endl;
                 break;
 
             case ix::WebSocketMessageType::Close:
-                std::cout << "[상태] Connection closed. Code: " << msg->closeInfo.code 
+                std::cout << "[STATUS] Connection closed. Code: " << msg->closeInfo.code 
                           << ", Reason: " << msg->closeInfo.reason << std::endl;
                 break;
 
             case ix::WebSocketMessageType::Error:
-                std::cerr << "[오류] Error: " << msg->errorInfo.reason << std::endl;
+                std::cerr << "[ERROR] Error: " << msg->errorInfo.reason << std::endl;
                 break;
 
             case ix::WebSocketMessageType::Ping:
-                // 서버로부터 수신된 Ping (자동 응답됨)
+                // Ping received from server (automatically responded)
                 break;
 
             case ix::WebSocketMessageType::Pong:
-                // 클라이언트 Ping에 대한 서버의 응답 수신
+                // Received server's response to client's Ping (Pong)
                 break;
 
             case ix::WebSocketMessageType::Fragment:
-                // 파편화된 메시지 수신 시 처리
+                // Handle reception of fragmented messages
                 break;
         }
     });
@@ -66,9 +66,9 @@ void custom_websocket_client::stop() {
 void custom_websocket_client::send_message(const std::string& text) {
     if (_web_socket.getReadyState() == ix::ReadyState::Open) {
         _web_socket.send(text);
-        std::cout << "[송신] " << text << std::endl;
+        std::cout << "[SENT] " << text << std::endl;
     } else {
-        std::cerr << "[경고] Cannot send. Connection is not open." << std::endl;
+        std::cerr << "[WARNING] Cannot send. Connection is not open." << std::endl;
     }
 }
 

@@ -9,14 +9,14 @@ public:
     void set_url(const std::string& url);
     ~custom_websocket_client();
 
-    // 서비스 제어
+    // Service control
     void start();
     void stop();
 
-    // 외부 쓰레드 안전 송신
+    // Thread-safe sending from external threads
     void send_message(const std::string& text);
 
-    // 연결 상태 확인
+    // Check connection status
     bool isReady() const;
 
 private:
